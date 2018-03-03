@@ -1,9 +1,9 @@
 <h1>Artykuły</h1>
 <p>
-<%= link_to 'New Article', new_article_path%>
+<%= link_to 'New Article', new_article_path, class: "btn btn-primary"%>
 
 </p>
-<table>
+<table class= "table table-hover">
 	<tr>
 		<th>ID</th>
 		<th>Created at</th>
@@ -15,13 +15,13 @@
 		<td><%= article.id %></td>
 		<td><%= article.created_at.to_date %></td>
 		<td><%= article.title %></td>
-		<td><%= link_to 'Show', article_path(article) %></td>
-		<td><%= link_to 'Delete', article_path(article), 
+		<td><%= link_to 'Show', article_path(article), class: "btn btn-warning" %>
+		<%= link_to 'Delete', article_path(article),
 								method: :delete,
-								data: {confirm: 'Are you sure?'}, 
+								data: {confirm: 'Are you sure?'},
 								#to by zmienić kolor w danym elemencie
-								class: 'dangerous' %></td> 
-		<td><%= link_to 'Edit', edit_article_path(article) %></td>
+								class: "btn btn-danger" %>
+		<%= link_to 'Edit', edit_article_path(article), class: "btn btn-success" %></td>
 	</tr>
 	<% end %>
 </table>
