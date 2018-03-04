@@ -2,6 +2,9 @@
 <%= render 'actions_permitions', model: @article %>
 <%= link_to 'Back', articles_path, class: "btn btn-primary" %>
 <p>
+<%= image_tag @article.image.url, height: '300px', width: '500px' %>
+</p>
+<p>
 	<strong><%= @article.title %></strong>
 </p>
 
