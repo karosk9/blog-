@@ -3,7 +3,6 @@ class ArticlesController < ApplicationController
 	before_action :provide_article, only: [:show, :destroy, :edit, :update]
 
 	def index #lista artykułów
-			session[:user_id] = 1
 		@articles = Article.all
 	end
 
@@ -22,8 +21,8 @@ class ArticlesController < ApplicationController
 	end
 
 	def show #nie trzeba wywoływać metody provide_article, bo ją wykonaliśmy na początku klasy
-		@comment = Comment.new
-		@comment.commenter = session[:commenter]
+		@comment = Comment.new(commenter: session[:commenter])
+		# @comment.commenter = session[:commenter]
 	end
 
 	def edit
