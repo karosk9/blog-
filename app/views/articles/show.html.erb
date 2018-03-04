@@ -17,6 +17,7 @@
 	<strong>Text:</strong>
 	<%= @article.text %>
 </p>
+<%= @article.user.email%>
 <h3>Comments</h3>
 <%= render 'comments/form' %>
 

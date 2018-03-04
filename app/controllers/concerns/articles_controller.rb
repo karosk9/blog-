@@ -18,7 +18,7 @@ class ArticlesController < ApplicationController
 		# render plain: params[:article].inspect # wyświetla parametry
 		@article = Article.new(article_params)
 		if @article.save
-			redirect_to article_path(@article) #odnosi się do id obiektu
+			redirect_to article_path(@article), notice: 'article created!' #odnosi się do id obiektu
 		else
 			render 'new' # jeśli są niesprełnione warunki walidacji nie przepuści nas dalej ale zostawi wypełnione dane w formuarzu
 		end
