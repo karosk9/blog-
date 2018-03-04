@@ -1,5 +1,4 @@
 class ArticlesController < ApplicationController
-	http_basic_authenticate_with name: 'admin', password: 'admin', except: [:index, :show]
 	before_action :provide_article, only: [:show, :destroy, :edit, :update]
 
 	def index #lista artykułów
@@ -30,6 +29,7 @@ class ArticlesController < ApplicationController
 	end
 
 	def edit
+			redirect_to articles_path if current_user != @article.user
 	end
 
 	def update

@@ -1,0 +1,8 @@
+<% if current_user == model.user %>
+<%= link_to 'Delete', article_path(model),
+            method: :delete,
+            data: {confirm: 'Are you sure?'},
+            #to by zmienić kolor w danym elemencie
+            class: "btn btn-danger" %>
+<%= link_to 'Edit', edit_article_path(model), class: "btn btn-success" %></td>
+<% end %>
