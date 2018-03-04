@@ -1,8 +1,16 @@
-<%= link_to '<<', articles_path %>
-<%= link_to 'Edit', edit_article_path(@article), class: "btn btn-success" %>
+
+<%= link_to 'Edit', edit_article_path, class: "btn btn-warning" %>
+<%= link_to 'Back', articles_path, class: "btn btn-primary" %>
 <p>
-	<strong>Title:</strong>
-	<%= @article.title %>
+	<strong><%= @article.title %></strong>
+</p>
+<p>
+	<strong>Tags</strong>
+	<% @article.tag.each do |tag| %>
+		<ul>
+			<%= tag %>
+		</ul>
+	<% end %>
 </p>
 
 <p>
