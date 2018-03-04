@@ -10,6 +10,10 @@
 
   <body class="container">
     <div class="jumbotron">
+    <% if user_signed_in? %>
+      <%= link_to('Logout', destroy_user_session_path, method: :delete) %>
+      <%= current_user.email %>
+    <% end %>
     <%= yield %>
   </div>
   </body>

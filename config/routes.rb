@@ -1,4 +1,5 @@
 Rails.application.routes.draw do
+  devise_for :users
   root 'welcome#index'
   resources :articles do # dzięki odpowiedniej konwencji nazewniczej kontroller wie do jakiedo zasobu się odnieść
   # resources :articles, only: [:show] # jeśli chcemy by był dostęp tylko do metody show ale nie wyświetli się na stronie w tym wypadkubo nie ma create itd.
