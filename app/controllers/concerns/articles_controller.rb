@@ -1,5 +1,5 @@
 class ArticlesController < ApplicationController
-	before_action :provide_article, only: [:show, :destroy, :edit, :update]
+	before_action :provide_article, only: [:show, :destroy, :edit, :update, :add_like]
 
 	def index #lista artykułów
 		if params[:q].present?
@@ -25,6 +25,7 @@ class ArticlesController < ApplicationController
 
 	def show #nie trzeba wywoływać metody provide_article, bo ją wykonaliśmy na początku klasy
 		@comment = Comment.new(commenter: session[:commenter])
+		@user_like = @article.likes.find_by(user: current_user)
 		# @comment.commenter = session[:commenter]
 	end
 
@@ -38,6 +39,13 @@ class ArticlesController < ApplicationController
 			redirect_to articles_path
 		else
 			render 'edit' # jeśli są niesprełnione warunki walidacji nie przepuści nas dalej ale zostawi wypełnione dane w formuarzu
+		end
+	end
+
+	def add_like
+		if  @user_like.nil?
+			@article.likes.create(user: current_user)
+			redirect_to article_path(@article)
 		end
 	end
 

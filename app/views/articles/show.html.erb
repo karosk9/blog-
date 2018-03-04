@@ -4,12 +4,11 @@
 <p>
 	<strong><%= @article.title %></strong>
 </p>
+
 <p>
 	<strong>Tags</strong>
 	<% @article.tag.each do |tag| %>
-		<ul>
 			<%= tag %>
-		</ul>
 	<% end %>
 </p>
 
@@ -17,8 +16,21 @@
 	<strong>Text:</strong>
 	<%= @article.text %>
 </p>
-<%= @article.user.email%>
-<h3>Comments</h3>
-<%= render 'comments/form' %>
 
+<p>
+<strong>Author:</strong>
+<%= @article.user.email%>
+</p>
+
+<p>
+<strong>Likes:</strong>
+<%= @article.likes.count%>
+</p>
+<% if @user_like.nil? %>
+	<%= link_to 'Like', add_like_article_path(@article), class: 'btn btn-primary', method: :post %>
+<% else %>
+	<%= link_to 'Liked', article_path(@article), class: 'btn btn-danger' %>
+<% end %>
+<%= render 'comments/form' %>
+<h3>Comments</h3>
 <%= render @article.comments.order(created_at: :desc) %>
