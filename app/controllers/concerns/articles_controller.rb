@@ -3,13 +3,14 @@ class ArticlesController < ApplicationController
 	before_action :provide_article, only: [:show, :destroy, :edit, :update]
 
 	def index #lista artykułów
+			session[:user_id] = 1
 		@articles = Article.all
 	end
 
 	def new
 		@article=Article.new
 	end
-	
+
 	def create
 		# render plain: params[:article].inspect # wyświetla parametry
 		@article = Article.new(article_params)
@@ -22,9 +23,10 @@ class ArticlesController < ApplicationController
 
 	def show #nie trzeba wywoływać metody provide_article, bo ją wykonaliśmy na początku klasy
 		@comment = Comment.new
+		@comment.commenter = session[:commenter]
 	end
 
-	def edit	
+	def edit
 	end
 
 	def update
@@ -33,9 +35,9 @@ class ArticlesController < ApplicationController
 			redirect_to articles_path
 		else
 			render 'edit' # jeśli są niesprełnione warunki walidacji nie przepuści nas dalej ale zostawi wypełnione dane w formuarzu
-		end	
+		end
 	end
-	
+
 	def destroy
 		@article.destroy
 		redirect_to articles_path #przekieroanie do wszystkich artykułów
@@ -44,11 +46,11 @@ class ArticlesController < ApplicationController
 	private
 
 	def article_params
-		params.require(:article).permit(:title, :text) #ważne. 
+		params.require(:article).permit(:title, :text) #ważne.
 	end
 
 	def provide_article
-		@article=Article.find(params[:id])	
+		@article=Article.find(params[:id])
 	end
 
 
