@@ -3,6 +3,7 @@ class Article < ApplicationRecord
 		has_many :comments, dependent: :destroy
 		has_many :likes
 		belongs_to :user
+		after_destroy :send_destroy_info
 
 		def tag=(text)
 			text.is_a?(String) ? super(sanitize_tags(text)) : super(text)
@@ -10,6 +11,9 @@ class Article < ApplicationRecord
 		end
 
 		private
+		def send_destroy_info
+				ArticleMailer.article_destroy_info(self).deliver
+		end
 
 		def sanitize_tags(text)
 			text.split(" ").map(&:downcase).uniq
