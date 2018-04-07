@@ -2,10 +2,13 @@ class ArticlesController < ApplicationController
 	before_action :provide_article, only: [:show, :destroy, :edit, :update, :add_like]
 
 	def index #lista artykułów
+		@articles = Article.all
+													.paginate(:page => params[:page], :per_page => 20)
+													.eager_load(:user) #mówimy railsom że przy pobieraniu artykułów
+													#od razu ma pobrać wszystkich użytkowników związanych z artykułami, upraszcza zapytanie do bazy
+
 		if params[:q].present?
-			@articles = Article.where("? = any(tag)", params[:q])
-		else
-			@articles = Article.all
+			@articles =@articles.where("? = any(tag)", params[:q])
 		end
 	end
 
