@@ -1,4 +1,6 @@
 class Article < ApplicationRecord
+		include Intro
+		before_validation :filter_profanity_words
 		validates :title, :text, presence: true, length: { minimum: 5 }
 		has_many :comments, dependent: :destroy
 		has_many :likes
@@ -17,5 +19,9 @@ class Article < ApplicationRecord
 
 		def sanitize_tags(text)
 			text.split(" ").map(&:downcase).uniq
+		end
+
+		def filter_profanity_words
+			self.text = ProfanityFilter.new(self.text).censored_text
 		end
 end
