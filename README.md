@@ -1,24 +1,23 @@
-# README
+### Staging debugging
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+In order to investigate bugs that are not possible to reproduce locally and have to be investigated on staging or production
 
-Things you may want to cover:
+Connect to running staging web container as described in Staging Access section
+Open the file you want to debug. For example:
+```
+vim app/policies/any_policy.rb
+```
+Paste the debug command to the file
 
-* Ruby version
+```
+Rails.logger.debug string_or_object_to_return_in_logs
+```
+Save and exit the file 
 
-* System dependencies
-
-* Configuration
-
-* Database creation
-
-* Database initialization
-
-* How to run the test suite
-
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
+```
+touch /app/tmp/restart.txt
+```
+Show server logs and look for debugger results within them.
+```
+tail -f /app/log/staging.log
+```
